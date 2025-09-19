@@ -1,0 +1,3 @@
+pyinstaller --onedir --clean --noconfir --noconsole --name "JiraTestCasesUploader" uploadTPTETC.py
+
+pyinstaller --onedir --clean --noconfirm --noconsole --name "JiraAutomationTool" homePage.py

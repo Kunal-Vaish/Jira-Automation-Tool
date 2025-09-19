@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "c:\Users\kunalv\OneDrive - AMDOCS\JiraTestUploader\uploadTPTETC.py", line 314, in <module>
+    app = JiraXrayUploader(root)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\kunalv\OneDrive - AMDOCS\JiraTestUploader\uploadTPTETC.py", line 100, in __init__
+    tk.Checkbutton(container, text="Remember me", variable=self.remember_var).grid(row=row, column=1.5, pady=5)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 2568, in grid_configure
+    self.tk.call(
+_tkinter.TclError: bad column value "1.5": must be a non-negative integer
