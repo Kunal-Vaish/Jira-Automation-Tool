@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Jira Subtask Sidebar Inject",
+  "version": "1.0",
+  "description": "Injects a sidebar into Jira story page to create subtasks with time estimates.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["https://jira.bell.corp.bce.ca/*"],
+  "action": {
+    "default_title": "Create Jira Subtasks"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
