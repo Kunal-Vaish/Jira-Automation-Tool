@@ -82,17 +82,17 @@ class HomePage(tk.Tk):
         page.grid(row=0, column=0, sticky="nsew")
         self.show_frame(MarkTCCompletePage)
 
-    # def open_create_subtask(self):
-    #     relative_path = os.path.join("SubTaskCreator Tool", "chrome.bat")
-    #     bat_path = resource_path(relative_path)
+    def open_create_subtask(self):
+        relative_path = os.path.join("SubTaskCreator Tool", "chrome.bat")
+        bat_path = resource_path(relative_path)
 
-    #     if os.path.exists(bat_path):
-    #         try:
-    #             subprocess.Popen([bat_path], shell=True)
-    #         except Exception as e:
-    #             messagebox.showerror("Error", f"Failed to open .bat file:\n{e}")
-    #     else:
-    #         messagebox.showerror("Error", f".bat file not found at:\n{bat_path}")
+        if os.path.exists(bat_path):
+            try:
+                subprocess.Popen([bat_path], shell=True)
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to open .bat file:\n{e}")
+        else:
+            messagebox.showerror("Error", f".bat file not found at:\n{bat_path}")
 
 class MenuPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -126,9 +126,9 @@ class MenuPage(tk.Frame):
                   command=controller.open_mark_complete,
                   width=30, height=2).pack(pady=10)
 
-        # tk.Button(container, text="📝 Create SubTask",
-        #           command=controller.open_create_subtask,
-        #           width=30, height=2).pack(pady=10)
+        tk.Button(container, text="📝 Create SubTask",
+                  command=controller.open_create_subtask,
+                  width=30, height=2).pack(pady=10)
         
     def back_to_login(self):
         import loginPage

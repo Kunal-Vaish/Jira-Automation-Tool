@@ -66,24 +66,17 @@ class MarkTCCompletePage(tk.Frame):
         self.general_log.config(state="disabled")
         self.master.update()
 
-    def transition_issue(self, issue_key, status_name, direct=False):
+    def transition_issue(self, issue_key, status_name):
         try:
             url_trans = f"{self.jira_url.rstrip('/')}/rest/api/2/issue/{issue_key}/transitions"
             resp = requests.get(url_trans, auth=self.auth, headers=self.headers)
             resp.raise_for_status()
             transitions = resp.json().get("transitions", [])
-
-            if status_name.lower() == "done" and direct:
-                target = next((t for t in transitions if t["name"].lower() == "done (direct)"), None)
-            else:
-                target = next((t for t in transitions if t["to"]["name"].lower() == status_name.lower()), None)
-
+            target = next((t for t in transitions if t["to"]["name"].lower() == status_name.lower()), None)
             if target:
                 transition_id = target["id"]
-                payload = {"transition": {"id": transition_id}}
-                resp_post = requests.post(url_trans, json=payload, auth=self.auth, headers=self.headers)
-                resp_post.raise_for_status()
-                self.log_message(f"{issue_key} transitioned using '{target['name']}' → {status_name}")
+                requests.post(url_trans, json={"transition": {"id": transition_id}}, auth=self.auth, headers=self.headers)
+                self.log_message(f"{issue_key} transitioned to {status_name}")
             else:
                 self.log_error(f"No transition to {status_name} found for {issue_key}")
         except Exception as e:
@@ -140,9 +133,9 @@ class MarkTCCompletePage(tk.Frame):
             for exec_key in exec_keys:
                 self.log_message(f"Processing Test Execution {exec_key}")
                 self.mark_test_runs_passed(exec_key)
-                self.transition_issue(exec_key, "Done", direct=True)
+                self.transition_issue(exec_key, "Done")
 
-            self.transition_issue(tp, "Done", direct=True)
+            self.transition_issue(tp, "Done")
 
             messagebox.showinfo("Success", f"All Test Cases under Test Plan {tp} marked PASS and closed.")
 

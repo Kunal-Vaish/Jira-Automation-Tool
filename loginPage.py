@@ -5,7 +5,6 @@ import os
 import json
 import keyring
 import requests
-import subprocess
 
 SERVICE_NAME = "jira"
 
@@ -46,20 +45,6 @@ def validate_login(jira_url, username, password):
     except Exception:
         return False
 
-# 🔥 New: SubTask launcher (outside login)
-def open_create_subtask():
-    from homePage import resource_path   # reuse existing function
-    relative_path = os.path.join("SubTaskCreator Tool", "chrome.bat")
-    bat_path = resource_path(relative_path)
-
-    if os.path.exists(bat_path):
-        try:
-            subprocess.Popen([bat_path], shell=True)
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to open .bat file:\n{e}")
-    else:
-        messagebox.showerror("Error", f".bat file not found at:\n{bat_path}")
-
 class LoginPage(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -92,12 +77,6 @@ class LoginPage(tk.Tk):
         tk.Checkbutton(container, text="Remember me", variable=self.remember_var).pack(pady=5)
 
         tk.Button(container, text="Login", command=self.login, width=20, height=2).pack(pady=20)
-
-        # 🔥 New button for SubTask Tool (outside login)
-        tk.Button(container,
-                  text="📝 Create SubTask (No Login Required)",
-                  command=open_create_subtask,
-                  width=30, height=2).pack(pady=10)
 
         # Pre-fill if creds exist
         url, user, pwd = load_credentials()

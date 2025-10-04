@@ -1,9 +1,0 @@
-@echo off
-REM Path to Chrome executable
-set CHROME_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
-
-REM Path to unpacked extension
-set EXT_PATH="C:\Users\Ashish\Documents\jira-subtask-creator"
-
-REM Launch Chrome with extension loaded
-%CHROME_PATH% --load-extension=%EXT_PATH%
